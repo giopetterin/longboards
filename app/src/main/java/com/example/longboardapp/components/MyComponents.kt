@@ -126,7 +126,7 @@ fun MyTexts(title: String, body: String) {
             MaterialTheme.typography.titleMedium,
             if (expanded) Int.MAX_VALUE else 1
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         MyText(
             body,
             MaterialTheme.colorScheme.primary,
