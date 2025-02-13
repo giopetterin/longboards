@@ -40,7 +40,7 @@ fun MenuLongBoard(navController: NavController) {
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text("Bienvenido a los tipos de Long Board")
+                    Text("Bienvenido a  Geo  Long Board")
                 },
                 actions = {
                     var isMenuOpened by remember { mutableStateOf(false) }
