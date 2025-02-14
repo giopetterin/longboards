@@ -14,8 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,8 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.longboardapp.R
-import com.example.longboardapp.components.MyTexts
-import com.example.longboardapp.components.longBoards
+import com.example.longboardapp.components.MyDualTextsExpanded
 import com.example.longboardapp.navigation.AppScreens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -56,25 +56,40 @@ fun DancingLongBoard(navController: NavController) {
                         contentAlignment = Alignment.TopStart
                     ) {
                         IconButton(onClick = {
-                            navController.navigate(route = AppScreens.MenuLongBoards.route)
+                            navController.navigate(route = AppScreens.CarritoLongBoards.route)
                         })
                         {
                             Icon(
-                                imageVector = Icons.Filled.ArrowBack,
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Volver al menu"
                             )
-
+                        }
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 2.dp, top = 8.dp, end= 2.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("Bienvenido a los Dancing Long Board!!",
+                                color= MaterialTheme.colorScheme.onPrimary)
                         }
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(start = 2.dp, top = 8.dp),
-                            contentAlignment = Alignment.Center
-                        )
-                        {
-                            Text("Bienvenido a los Dancing Long Board!!",
-                                color= MaterialTheme.colorScheme.onPrimary)
-                        }
+                            contentAlignment = Alignment.TopEnd
+                        ) {
+                        IconButton(
+                            onClick = {
+                            navController.navigate(route = AppScreens.CarritoLongBoards.route)
+                                      }
+                                  ){
+                                     Icon(
+                                        imageVector = Icons.Filled.ShoppingCart,
+                                        contentDescription = "Carrito compras"
+                                        )
+                                 }
+                            }
                     }
                 },
                 title = {
@@ -108,8 +123,6 @@ fun DancingBodyContent() {
             .border(1.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(5.dp))
             .height(400.dp),
         contentAlignment = Alignment.CenterEnd
-
-
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -117,19 +130,23 @@ fun DancingBodyContent() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ImageDancing()
-            MyTexts(
-                longBoards.asIterable().first { it.tittle == "Dancing" }.tittle,
-                longBoards.asIterable().first { it.tittle == "Dancing" }.body
+            MyDualTextsExpanded(
+                longBoards.first { it.tittle == "Dancing" }.tittle,
+                longBoards.first { it.tittle == "Dancing" }.body
             )
             Row (  modifier = Modifier.fillMaxSize().padding(2.dp) ){
 
-                Text(text = "$150,55",
+                Text(text = longBoards.first { it.tittle == "Dancing" }.price.toString(),
                     modifier = Modifier.padding(2.dp, 10.dp),
                     color = MaterialTheme.colorScheme.primary,
                    style =  MaterialTheme.typography.titleMedium)
                 IconButton(modifier = Modifier.padding(1.dp, 1.dp),
-                    onClick = { /*TODO*/
-                })
+                    onClick = {
+                        carritoLongBoards.add(
+                            longBoards.first { it.tittle == "Dancing" }
+                        )
+                    }
+                )
                 {
                     Icon (
                         imageVector = Icons.Filled.Add,

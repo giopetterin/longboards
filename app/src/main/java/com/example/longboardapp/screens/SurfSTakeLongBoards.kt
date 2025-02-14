@@ -27,8 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.longboardapp.R
-import com.example.longboardapp.components.MyTexts
-import com.example.longboardapp.components.longBoards
+import com.example.longboardapp.components.MyDualTextsExpanded
 import com.example.longboardapp.navigation.AppScreens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -94,7 +93,7 @@ fun SurfTStakeBodyContent() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MyTexts(
+        MyDualTextsExpanded(
             longBoards.asIterable().first { it.tittle == "SurfTStake" }.tittle ,
             longBoards.asIterable().first { it.tittle == "SurfTStake" }.body)
         ImageSurfTStake()

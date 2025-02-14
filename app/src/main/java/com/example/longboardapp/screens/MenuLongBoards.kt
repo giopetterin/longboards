@@ -27,6 +27,55 @@ import com.example.longboardapp.components.MiniMenuOptions
 import com.example.longboardapp.components.MyLongBoards
 import com.example.longboardapp.navigation.myRouteLongBoards
 
+
+data class KindOfLongBoards(val tittle: String, val body: String, val price: Double)
+
+val longBoards: List<KindOfLongBoards> = listOf(
+    KindOfLongBoards(
+        "Dancing",
+        "las tablas danding longboard son el tipo de tabla más largo. Estas tablas permiten realizar gran variedad de trucos y movimientos. Este tipo de tabla es ideal para pistas largas con superficies lisas.",
+         100.2
+
+    ),
+    KindOfLongBoards(
+        "Cruising",
+        "las tablas de cruising son perfectas para la movilidad urbana ya que permiten tomar curvas más cerradas y al ser menos voluminosas permiten un transporte más ligero.",
+        60.44
+    ),
+    KindOfLongBoards(
+        "SurfTStake",
+        "tablas diseñadas para vivir la experiencia del surf en el asfalto. Su punto fuerte son sus ejes especiales con los que girar en cualquier dirección y no limitar el movimiento. Su diseño, innovación y tecnología hacen que estas tablas tengan un gran atractivo.",
+        50.00
+    ),
+    KindOfLongBoards(
+        "Balance",
+        "este tipo de tablas son para realizar ejercicios de equilibrio, fuerza y resistencia. Se apoyan sobre una base inestable y son una opción perfecta para principiantes. Los entrenamientos en casa con este tipo de tabla potencian el equilibrio y permiten un entrenamiento fléxible en cualquier momento.",
+        50.00
+    ),
+    KindOfLongBoards(
+        "Dancing",
+        "las tablas danding longboard son el tipo de tabla más largo. Estas tablas permiten realizar gran variedad de trucos y movimientos. Este tipo de tabla es ideal para pistas largas con superficies lisas.",
+        200.33
+    ),
+    KindOfLongBoards(
+        "Cruising",
+        "las tablas de cruising son perfectas para la movilidad urbana ya que permiten tomar curvas más cerradas y al ser menos voluminosas permiten un transporte más ligero.",
+        240.12
+    ),
+    KindOfLongBoards(
+        "SurfTStake",
+        "tablas diseñadas para vivir la experiencia del surf en el asfalto. Su punto fuerte son sus ejes especiales con los que girar en cualquier dirección y no limitar el movimiento. Su diseño, innovación y tecnología hacen que estas tablas tengan un gran atractivo.",
+           123.99
+    ),
+    KindOfLongBoards(
+        "Balance",
+        "este tipo de tablas son para realizar ejercicios de equilibrio, fuerza y resistencia. Se apoyan sobre una base inestable y son una opción perfecta para principiantes. Los entrenamientos en casa con este tipo de tabla potencian el equilibrio y permiten un entrenamiento fléxible en cualquier momento.",
+        10.11
+    )
+)
+
+var carritoLongBoards: ArrayList<KindOfLongBoards> = ArrayList()
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +96,8 @@ fun MenuLongBoard(navController: NavController) {
                   IconButton(onClick = {isMenuOpened = true}) {
                       Icon(imageVector = Icons.Filled.MoreVert,
                           contentDescription = "Opciones de menu")
-                      MiniMenuOptions(isExpanded = isMenuOpened,
+                      MiniMenuOptions(
+                          longBoards, isExpanded = isMenuOpened,
                           onItemClick = {
                               item ->
                               myRouteLongBoards(item, navController)
@@ -71,7 +121,7 @@ fun BodyContent(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MyLongBoards(navController)
+        MyLongBoards(longBoards, navController)
     }
 }
 

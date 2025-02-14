@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.longboardapp.screens.BalanceLongBoard
+import com.example.longboardapp.screens.CarritoLongBoard
 import com.example.longboardapp.screens.CruisingLongBoard
 import com.example.longboardapp.screens.DancingLongBoard
 import com.example.longboardapp.screens.MenuLongBoard
@@ -24,6 +25,9 @@ fun AppNavigation() {
         }
         composable(route = AppScreens.DancingLongBoards.route) {
             DancingLongBoard(navController)
+        }
+        composable(route = AppScreens.CarritoLongBoards.route) {
+            CarritoLongBoard(navController)
         }
         composable(route = AppScreens.CruisingLongBoards.route) {
           CruisingLongBoard(navController)
