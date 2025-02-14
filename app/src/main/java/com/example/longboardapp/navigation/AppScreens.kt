@@ -6,6 +6,7 @@ package com.example.longboardapp.navigation
 sealed class AppScreens (val route: String) {
     object MenuLongBoards: AppScreens("menu_longBoards")
     object DancingLongBoards: AppScreens("dancing_longBoards")
+    object CarritoLongBoards: AppScreens("carrito_longBoards")
     object CruisingLongBoards: AppScreens("cruising_longBoards")
     object SurfSTakeLongBoards: AppScreens("surfStake_longBoards")
     object BalanceLongBoards: AppScreens("balance_longBoards")

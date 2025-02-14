@@ -13,6 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.longboardapp.navigation.AppNavigation
 import com.example.longboardapp.ui.theme.LongBoardAppTheme
 
+
+
+
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {

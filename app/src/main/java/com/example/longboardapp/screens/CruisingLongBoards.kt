@@ -28,8 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.longboardapp.R
-import com.example.longboardapp.components.MyTexts
-import com.example.longboardapp.components.longBoards
+import com.example.longboardapp.components.MyDualTextsExpanded
 import com.example.longboardapp.navigation.AppScreens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -95,7 +94,7 @@ fun CruisingBodyContent() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MyTexts(
+        MyDualTextsExpanded(
             longBoards.asIterable().first { it.tittle == "Cruising" }.tittle ,
             longBoards.asIterable().first { it.tittle == "Cruising" }.body)
         ImageCruising()

@@ -26,47 +26,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.longboardapp.navigation.myRouteLongBoards
+import com.example.longboardapp.screens.KindOfLongBoards
 
-
-data class KindOfLongBoards(val tittle: String, val body: String)
-
-val longBoards: List<KindOfLongBoards> = listOf(
-    KindOfLongBoards(
-        "Dancing",
-        "las tablas danding longboard son el tipo de tabla más largo. Estas tablas permiten realizar gran variedad de trucos y movimientos. Este tipo de tabla es ideal para pistas largas con superficies lisas."
-    ),
-    KindOfLongBoards(
-        "Cruising",
-        "las tablas de cruising son perfectas para la movilidad urbana ya que permiten tomar curvas más cerradas y al ser menos voluminosas permiten un transporte más ligero."
-    ),
-    KindOfLongBoards(
-        "SurfTStake",
-        "tablas diseñadas para vivir la experiencia del surf en el asfalto. Su punto fuerte son sus ejes especiales con los que girar en cualquier dirección y no limitar el movimiento. Su diseño, innovación y tecnología hacen que estas tablas tengan un gran atractivo."
-    ),
-    KindOfLongBoards(
-        "Balance",
-        "este tipo de tablas son para realizar ejercicios de equilibrio, fuerza y resistencia. Se apoyan sobre una base inestable y son una opción perfecta para principiantes. Los entrenamientos en casa con este tipo de tabla potencian el equilibrio y permiten un entrenamiento fléxible en cualquier momento."
-    ),
-    KindOfLongBoards(
-        "Dancing",
-        "las tablas danding longboard son el tipo de tabla más largo. Estas tablas permiten realizar gran variedad de trucos y movimientos. Este tipo de tabla es ideal para pistas largas con superficies lisas."
-    ),
-    KindOfLongBoards(
-        "Cruising",
-        "las tablas de cruising son perfectas para la movilidad urbana ya que permiten tomar curvas más cerradas y al ser menos voluminosas permiten un transporte más ligero."
-    ),
-    KindOfLongBoards(
-        "SurfTStake",
-        "tablas diseñadas para vivir la experiencia del surf en el asfalto. Su punto fuerte son sus ejes especiales con los que girar en cualquier dirección y no limitar el movimiento. Su diseño, innovación y tecnología hacen que estas tablas tengan un gran atractivo."
-    ),
-    KindOfLongBoards(
-        "Balance",
-        "este tipo de tablas son para realizar ejercicios de equilibrio, fuerza y resistencia. Se apoyan sobre una base inestable y son una opción perfecta para principiantes. Los entrenamientos en casa con este tipo de tabla potencian el equilibrio y permiten un entrenamiento fléxible en cualquier momento."
-    )
-)
 
 @Composable
-fun MyLongBoards(navController: NavController) {
+fun MyLongBoards(longBoards: List<KindOfLongBoards>, navController: NavController) {
     LazyVerticalGrid(columns = GridCells.Fixed(3)) {
         items(longBoards) { longBoard ->
             CentralMenuOptions(longBoard, navController)
@@ -75,7 +39,7 @@ fun MyLongBoards(navController: NavController) {
 }
 
 @Composable
-fun MiniMenuOptions(isExpanded: Boolean, onItemClick: (String) -> Unit, onDismiss: () -> Unit) {
+fun MiniMenuOptions(longBoards: List<KindOfLongBoards>, isExpanded: Boolean, onItemClick: (String) -> Unit, onDismiss: () -> Unit) {
     DropdownMenu(isExpanded, onDismiss) {
         longBoards.forEach { longBoard ->
             DropdownMenuItem(text = { Text(longBoard.tittle) },
@@ -95,10 +59,8 @@ fun CentralMenuOptions(longBoards: KindOfLongBoards, navController: NavControlle
             .padding(8.dp)
             .clickable {
                 myRouteLongBoards(longBoards.tittle, navController)
-
             }, contentAlignment = Alignment.TopCenter
     ) {
-
         MyImageLongBoards(longBoards.tittle)
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -113,7 +75,7 @@ fun CentralMenuOptions(longBoards: KindOfLongBoards, navController: NavControlle
 }
 
 @Composable
-fun MyTexts(title: String, body: String) {
+fun MyDualTextsExpanded(title: String, body: String) {
     var expanded by remember { mutableStateOf(false) }
     Column(modifier = Modifier
         .padding(8.dp)
@@ -136,7 +98,9 @@ fun MyTexts(title: String, body: String) {
     }
 }
 
+
+
 @Composable
-fun MyText(text: String, color: Color, style: TextStyle, lines: Int = Int.MAX_VALUE) {
-    Text(text, color = color, style = style, maxLines = lines)
+fun MyText(text: String, color: Color, style: TextStyle, lines: Int = Int.MAX_VALUE, align: TextAlign? = null) {
+    Text(text, color = color, style = style, maxLines = lines, textAlign = align)
 }
