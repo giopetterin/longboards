@@ -1,4 +1,4 @@
-package com.example.longboardapp.screens
+package com.example.longboardapp.view.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image

@@ -1,4 +1,4 @@
-package com.example.longboardapp.screens
+package com.example.longboardapp.view.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -25,15 +25,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
+import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
+import com.example.longboardapp.viewmodel.LongBoardViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SurfTStakeLongBoard(navController: NavController) {
+fun BalanceLongBoard(navController: NavController) {
+
+    val longBoardViewModel: LongBoardViewModel = hiltViewModel()
+    val longBoards: List<LongBoardModel> = longBoardViewModel.getAllLongBoards()
 
     Scaffold(
         topBar = {
@@ -65,21 +71,21 @@ fun SurfTStakeLongBoard(navController: NavController) {
                     }
                 },
                 title = {
-                    Text("Bienvenido a los SurfTStake Long Board")
+                    Text("Bienvenido a los Balance Long Board")
                 }
             )
         }
     ){
-        SurfTStakeBodyContent()
+        BalanceBodyContent(longBoards)
     }
 }
 
 
 @Composable
-fun ImageSurfTStake(){
+fun ImageBalance(){
     Image(
-        painterResource(R.drawable.imagesurfskate),
-        "Mi imagen surfTStake",
+        painterResource(R.drawable.imagebalancelongboard),
+        "Mi imagen balance",
         modifier = Modifier
             .size(400.dp)
             .background(MaterialTheme.colorScheme.onBackground)
@@ -87,15 +93,15 @@ fun ImageSurfTStake(){
 }
 
 @Composable
-fun SurfTStakeBodyContent() {
+fun BalanceBodyContent(longBoards: List<LongBoardModel>) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        MyDualTextsExpanded(
-//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.tittle ,
-//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.body)
-        ImageSurfTStake()
+        MyDualTextsExpanded(
+            longBoards.first { it.tittle == "Balance" }.tittle,
+            longBoards.first { it.tittle == "Balance" }.body)
+        ImageBalance()
     }
 }

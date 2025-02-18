@@ -1,4 +1,4 @@
-package com.example.longboardapp.screens
+package com.example.longboardapp.view.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -24,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.longboardapp.R
@@ -34,7 +33,7 @@ import com.example.longboardapp.navigation.AppScreens
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CruisingLongBoard(navController: NavController) {
+fun SurfTStakeLongBoard(navController: NavController) {
 
     Scaffold(
         topBar = {
@@ -66,43 +65,37 @@ fun CruisingLongBoard(navController: NavController) {
                     }
                 },
                 title = {
-                    Text("Bienvenido a los Cruising Long Board")
+                    Text("Bienvenido a los SurfTStake Long Board")
                 }
             )
         }
     ){
-        CruisingBodyContent()
+        SurfTStakeBodyContent()
     }
 }
 
+
 @Composable
-fun ImageCruising(){
+fun ImageSurfTStake(){
     Image(
-        painterResource(R.drawable.imagecruisinglongboard),
-        "Mi imagen cruising",
+        painterResource(R.drawable.imagesurfskate),
+        "Mi imagen surfTStake",
         modifier = Modifier
             .size(400.dp)
-            .background(MaterialTheme.colorScheme.primary)
-
+            .background(MaterialTheme.colorScheme.onBackground)
     )
 }
 
 @Composable
-fun CruisingBodyContent() {
+fun SurfTStakeBodyContent() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 //        MyDualTextsExpanded(
-//            longBoards.asIterable().first { it.tittle == "Cruising" }.tittle ,
-//            longBoards.asIterable().first { it.tittle == "Cruising" }.body)
-        ImageCruising()
+//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.tittle ,
+//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.body)
+        ImageSurfTStake()
     }
-}
-
-@Preview
-@Composable
-fun PreviewCruising(){
-    CruisingBodyContent()
 }

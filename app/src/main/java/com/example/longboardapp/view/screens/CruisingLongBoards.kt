@@ -1,4 +1,4 @@
-package com.example.longboardapp.screens
+package com.example.longboardapp.view.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -24,22 +24,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
-import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
-import com.example.longboardapp.viewmodel.LongBoardViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BalanceLongBoard(navController: NavController) {
-
-    val longBoardViewModel: LongBoardViewModel = hiltViewModel()
-    val longBoards: List<LongBoardModel> = longBoardViewModel.getAllLongBoards()
+fun CruisingLongBoard(navController: NavController) {
 
     Scaffold(
         topBar = {
@@ -71,37 +66,43 @@ fun BalanceLongBoard(navController: NavController) {
                     }
                 },
                 title = {
-                    Text("Bienvenido a los Balance Long Board")
+                    Text("Bienvenido a los Cruising Long Board")
                 }
             )
         }
     ){
-        BalanceBodyContent(longBoards)
+        CruisingBodyContent()
     }
 }
 
-
 @Composable
-fun ImageBalance(){
+fun ImageCruising(){
     Image(
-        painterResource(R.drawable.imagebalancelongboard),
-        "Mi imagen balance",
+        painterResource(R.drawable.imagecruisinglongboard),
+        "Mi imagen cruising",
         modifier = Modifier
             .size(400.dp)
-            .background(MaterialTheme.colorScheme.onBackground)
+            .background(MaterialTheme.colorScheme.primary)
+
     )
 }
 
 @Composable
-fun BalanceBodyContent(longBoards: List<LongBoardModel>) {
+fun CruisingBodyContent() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MyDualTextsExpanded(
-            longBoards.first { it.tittle == "Balance" }.tittle,
-            longBoards.first { it.tittle == "Balance" }.body)
-        ImageBalance()
+//        MyDualTextsExpanded(
+//            longBoards.asIterable().first { it.tittle == "Cruising" }.tittle ,
+//            longBoards.asIterable().first { it.tittle == "Cruising" }.body)
+        ImageCruising()
     }
+}
+
+@Preview
+@Composable
+fun PreviewCruising(){
+    CruisingBodyContent()
 }
