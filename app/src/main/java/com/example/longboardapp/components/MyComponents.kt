@@ -25,12 +25,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.myRouteLongBoards
-import com.example.longboardapp.screens.KindOfLongBoards
 
 
 @Composable
-fun MyLongBoards(longBoards: List<KindOfLongBoards>, navController: NavController) {
+fun MyLongBoards(longBoards: List<LongBoardModel>, navController: NavController) {
+
     LazyVerticalGrid(columns = GridCells.Fixed(3)) {
         items(longBoards) { longBoard ->
             CentralMenuOptions(longBoard, navController)
@@ -39,9 +40,10 @@ fun MyLongBoards(longBoards: List<KindOfLongBoards>, navController: NavControlle
 }
 
 @Composable
-fun MiniMenuOptions(longBoards: List<KindOfLongBoards>, isExpanded: Boolean, onItemClick: (String) -> Unit, onDismiss: () -> Unit) {
+fun MiniMenuOptions(longBoards: List<LongBoardModel>, isExpanded: Boolean, onItemClick: (String) -> Unit, onDismiss: () -> Unit) {
     DropdownMenu(isExpanded, onDismiss) {
-        longBoards.forEach { longBoard ->
+
+        longBoards.forEach(){ longBoard ->
             DropdownMenuItem(text = { Text(longBoard.tittle) },
                 onClick = {
                     onItemClick(longBoard.tittle)
@@ -53,7 +55,7 @@ fun MiniMenuOptions(longBoards: List<KindOfLongBoards>, isExpanded: Boolean, onI
 
 
 @Composable
-fun CentralMenuOptions(longBoards: KindOfLongBoards, navController: NavController) {
+fun CentralMenuOptions(longBoards: LongBoardModel, navController: NavController) {
     Box(
         modifier = Modifier
             .padding(8.dp)

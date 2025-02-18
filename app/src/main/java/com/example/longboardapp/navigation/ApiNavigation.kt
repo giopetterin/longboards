@@ -12,9 +12,11 @@ import com.example.longboardapp.screens.DancingLongBoard
 import com.example.longboardapp.screens.MenuLongBoard
 import com.example.longboardapp.screens.SurfTStakeLongBoard
 
+
 /**
  * Se va encargar de orquestar nuestra navegacion debemos agregar una libreria.
  */
+
 
 @Composable
 fun AppNavigation() {

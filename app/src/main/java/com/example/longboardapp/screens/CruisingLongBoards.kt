@@ -94,9 +94,9 @@ fun CruisingBodyContent() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MyDualTextsExpanded(
-            longBoards.asIterable().first { it.tittle == "Cruising" }.tittle ,
-            longBoards.asIterable().first { it.tittle == "Cruising" }.body)
+//        MyDualTextsExpanded(
+//            longBoards.asIterable().first { it.tittle == "Cruising" }.tittle ,
+//            longBoards.asIterable().first { it.tittle == "Cruising" }.body)
         ImageCruising()
     }
 }

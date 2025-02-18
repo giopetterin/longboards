@@ -22,64 +22,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.longboardapp.components.MiniMenuOptions
 import com.example.longboardapp.components.MyLongBoards
+import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.myRouteLongBoards
+import com.example.longboardapp.viewmodel.LongBoardViewModel
 
 
-data class KindOfLongBoards(val tittle: String, val body: String, val price: Double)
+var carritoLongBoards: ArrayList<LongBoardModel> = ArrayList()
 
-val longBoards: List<KindOfLongBoards> = listOf(
-    KindOfLongBoards(
-        "Dancing",
-        "las tablas danding longboard son el tipo de tabla más largo. Estas tablas permiten realizar gran variedad de trucos y movimientos. Este tipo de tabla es ideal para pistas largas con superficies lisas.",
-         100.2
-
-    ),
-    KindOfLongBoards(
-        "Cruising",
-        "las tablas de cruising son perfectas para la movilidad urbana ya que permiten tomar curvas más cerradas y al ser menos voluminosas permiten un transporte más ligero.",
-        60.44
-    ),
-    KindOfLongBoards(
-        "SurfTStake",
-        "tablas diseñadas para vivir la experiencia del surf en el asfalto. Su punto fuerte son sus ejes especiales con los que girar en cualquier dirección y no limitar el movimiento. Su diseño, innovación y tecnología hacen que estas tablas tengan un gran atractivo.",
-        50.00
-    ),
-    KindOfLongBoards(
-        "Balance",
-        "este tipo de tablas son para realizar ejercicios de equilibrio, fuerza y resistencia. Se apoyan sobre una base inestable y son una opción perfecta para principiantes. Los entrenamientos en casa con este tipo de tabla potencian el equilibrio y permiten un entrenamiento fléxible en cualquier momento.",
-        50.00
-    ),
-    KindOfLongBoards(
-        "Dancing",
-        "las tablas danding longboard son el tipo de tabla más largo. Estas tablas permiten realizar gran variedad de trucos y movimientos. Este tipo de tabla es ideal para pistas largas con superficies lisas.",
-        200.33
-    ),
-    KindOfLongBoards(
-        "Cruising",
-        "las tablas de cruising son perfectas para la movilidad urbana ya que permiten tomar curvas más cerradas y al ser menos voluminosas permiten un transporte más ligero.",
-        240.12
-    ),
-    KindOfLongBoards(
-        "SurfTStake",
-        "tablas diseñadas para vivir la experiencia del surf en el asfalto. Su punto fuerte son sus ejes especiales con los que girar en cualquier dirección y no limitar el movimiento. Su diseño, innovación y tecnología hacen que estas tablas tengan un gran atractivo.",
-           123.99
-    ),
-    KindOfLongBoards(
-        "Balance",
-        "este tipo de tablas son para realizar ejercicios de equilibrio, fuerza y resistencia. Se apoyan sobre una base inestable y son una opción perfecta para principiantes. Los entrenamientos en casa con este tipo de tabla potencian el equilibrio y permiten un entrenamiento fléxible en cualquier momento.",
-        10.11
-    )
-)
-
-var carritoLongBoards: ArrayList<KindOfLongBoards> = ArrayList()
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CheckResult")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuLongBoard(navController: NavController) {
+fun MenuLongBoard
+(navController: NavController)  {
+
+    val longBoardViewModel: LongBoardViewModel = hiltViewModel()
+    val longBoards: List<LongBoardModel> = longBoardViewModel.getAllLongBoards()
+
 
     Scaffold( containerColor = MaterialTheme.colorScheme.errorContainer,
         topBar = {
@@ -96,26 +58,28 @@ fun MenuLongBoard(navController: NavController) {
                   IconButton(onClick = {isMenuOpened = true}) {
                       Icon(imageVector = Icons.Filled.MoreVert,
                           contentDescription = "Opciones de menu")
-                      MiniMenuOptions(
-                          longBoards, isExpanded = isMenuOpened,
-                          onItemClick = {
-                              item ->
-                              myRouteLongBoards(item, navController)
-                              Log.i("TAG", "Elemento :  $item")
-                          }) {
-                          isMenuOpened = false
-                      }
+
+                          MiniMenuOptions(
+                              longBoards, isExpanded = isMenuOpened,
+                              onItemClick = { item ->
+                                  myRouteLongBoards(item, navController)
+                                  Log.i("TAG", "Elemento :  $item")
+                              }) {
+                              isMenuOpened = false
+                          }
                   }
                 }
             )
         }
     ){
-        BodyContent(navController)
+        BodyContent(navController, longBoards)
     }
 }
 
+
+
 @Composable
-fun BodyContent(navController: NavController) {
+fun BodyContent(navController: NavController, longBoards: List<LongBoardModel>) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

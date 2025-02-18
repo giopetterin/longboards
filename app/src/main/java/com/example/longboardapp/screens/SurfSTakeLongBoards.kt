@@ -93,9 +93,9 @@ fun SurfTStakeBodyContent() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MyDualTextsExpanded(
-            longBoards.asIterable().first { it.tittle == "SurfTStake" }.tittle ,
-            longBoards.asIterable().first { it.tittle == "SurfTStake" }.body)
+//        MyDualTextsExpanded(
+//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.tittle ,
+//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.body)
         ImageSurfTStake()
     }
 }

@@ -25,15 +25,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
+import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
+import com.example.longboardapp.viewmodel.LongBoardViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BalanceLongBoard(navController: NavController) {
+
+    val longBoardViewModel: LongBoardViewModel = hiltViewModel()
+    val longBoards: List<LongBoardModel> = longBoardViewModel.getAllLongBoards()
 
     Scaffold(
         topBar = {
@@ -70,7 +76,7 @@ fun BalanceLongBoard(navController: NavController) {
             )
         }
     ){
-        BalanceBodyContent()
+        BalanceBodyContent(longBoards)
     }
 }
 
@@ -87,15 +93,15 @@ fun ImageBalance(){
 }
 
 @Composable
-fun BalanceBodyContent() {
+fun BalanceBodyContent(longBoards: List<LongBoardModel>) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MyDualTextsExpanded(
-            longBoards.asIterable().first { it.tittle == "Balance" }.tittle ,
-            longBoards.asIterable().first { it.tittle == "Balance" }.body)
+            longBoards.first { it.tittle == "Balance" }.tittle,
+            longBoards.first { it.tittle == "Balance" }.body)
         ImageBalance()
     }
 }

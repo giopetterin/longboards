@@ -31,15 +31,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
+import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
+import com.example.longboardapp.viewmodel.LongBoardViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DancingLongBoard(navController: NavController) {
+
+    val longBoardViewModel: LongBoardViewModel = hiltViewModel()
+    val longBoards: List<LongBoardModel> = longBoardViewModel.getAllLongBoards()
 
     Scaffold(
         topBar = {
@@ -56,7 +62,7 @@ fun DancingLongBoard(navController: NavController) {
                         contentAlignment = Alignment.TopStart
                     ) {
                         IconButton(onClick = {
-                            navController.navigate(route = AppScreens.CarritoLongBoards.route)
+                            navController.navigate(route = AppScreens.MenuLongBoards.route)
                         })
                         {
                             Icon(
@@ -98,7 +104,7 @@ fun DancingLongBoard(navController: NavController) {
             )
         }
     ) {
-        DancingBodyContent()
+        DancingBodyContent(longBoards)
     }
 }
 
@@ -116,7 +122,7 @@ fun ImageDancing() {
 
 
 @Composable
-fun DancingBodyContent() {
+fun DancingBodyContent(longBoards: List<LongBoardModel> ) {
     Box(
         modifier = Modifier
             .padding(start = 2.dp, 86.dp)
@@ -160,10 +166,4 @@ fun DancingBodyContent() {
         }
     }
 
-}
-
-@Preview
-@Composable
-fun PreviewDancing() {
-    DancingBodyContent()
 }
