@@ -1,4 +1,4 @@
-package com.example.longboardapp.screens
+package com.example.longboardapp.view.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -33,7 +33,7 @@ import com.example.longboardapp.navigation.AppScreens
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BalanceLongBoard(navController: NavController) {
+fun SurfTStakeLongBoard(navController: NavController) {
 
     Scaffold(
         topBar = {
@@ -65,21 +65,21 @@ fun BalanceLongBoard(navController: NavController) {
                     }
                 },
                 title = {
-                    Text("Bienvenido a los Balance Long Board")
+                    Text("Bienvenido a los SurfTStake Long Board")
                 }
             )
         }
     ){
-        BalanceBodyContent()
+        SurfTStakeBodyContent()
     }
 }
 
 
 @Composable
-fun ImageBalance(){
+fun ImageSurfTStake(){
     Image(
-        painterResource(R.drawable.imagebalancelongboard),
-        "Mi imagen balance",
+        painterResource(R.drawable.imagesurfskate),
+        "Mi imagen surfTStake",
         modifier = Modifier
             .size(400.dp)
             .background(MaterialTheme.colorScheme.onBackground)
@@ -87,15 +87,15 @@ fun ImageBalance(){
 }
 
 @Composable
-fun BalanceBodyContent() {
+fun SurfTStakeBodyContent() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MyDualTextsExpanded(
-            longBoards.asIterable().first { it.tittle == "Balance" }.tittle ,
-            longBoards.asIterable().first { it.tittle == "Balance" }.body)
-        ImageBalance()
+//        MyDualTextsExpanded(
+//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.tittle ,
+//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.body)
+        ImageSurfTStake()
     }
 }

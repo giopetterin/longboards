@@ -1,4 +1,4 @@
-package com.example.longboardapp.screens
+package com.example.longboardapp.view.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -24,19 +24,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
+import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
+import com.example.longboardapp.viewmodel.LongBoardViewModel
+import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CruisingLongBoard(navController: NavController) {
+fun BalanceLongBoard(navController: NavController) {
 
-    Scaffold(
+    val longBoardViewModel = hiltViewModel<LongBoardViewModel>()
+    var longBoards: List<LongBoardModel> = mutableListOf()
+
+    longBoardViewModel.viewModelScope.launch{
+        longBoards =  longBoardViewModel.getAllLongBoards()
+
+    }
+
+
+        Scaffold(
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -66,43 +79,37 @@ fun CruisingLongBoard(navController: NavController) {
                     }
                 },
                 title = {
-                    Text("Bienvenido a los Cruising Long Board")
+                    Text("Bienvenido a los Balance Long Board")
                 }
             )
         }
     ){
-        CruisingBodyContent()
+        BalanceBodyContent(longBoards)
     }
 }
 
+
 @Composable
-fun ImageCruising(){
+fun ImageBalance(){
     Image(
-        painterResource(R.drawable.imagecruisinglongboard),
-        "Mi imagen cruising",
+        painterResource(R.drawable.imagebalancelongboard),
+        "Mi imagen balance",
         modifier = Modifier
             .size(400.dp)
-            .background(MaterialTheme.colorScheme.primary)
-
+            .background(MaterialTheme.colorScheme.onBackground)
     )
 }
 
 @Composable
-fun CruisingBodyContent() {
+fun BalanceBodyContent(longBoards: List<LongBoardModel>) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MyDualTextsExpanded(
-            longBoards.asIterable().first { it.tittle == "Cruising" }.tittle ,
-            longBoards.asIterable().first { it.tittle == "Cruising" }.body)
-        ImageCruising()
+            longBoards.first { it.tittle == "Balance" }.tittle,
+            longBoards.first { it.tittle == "Balance" }.body)
+        ImageBalance()
     }
-}
-
-@Preview
-@Composable
-fun PreviewCruising(){
-    CruisingBodyContent()
 }

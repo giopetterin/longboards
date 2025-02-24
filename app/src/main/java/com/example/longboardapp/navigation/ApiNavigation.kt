@@ -5,21 +5,23 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.longboardapp.screens.BalanceLongBoard
-import com.example.longboardapp.screens.CarritoLongBoard
-import com.example.longboardapp.screens.CruisingLongBoard
-import com.example.longboardapp.screens.DancingLongBoard
-import com.example.longboardapp.screens.MenuLongBoard
-import com.example.longboardapp.screens.SurfTStakeLongBoard
+import com.example.longboardapp.view.screens.BalanceLongBoard
+import com.example.longboardapp.view.screens.CarritoLongBoard
+import com.example.longboardapp.view.screens.CruisingLongBoard
+import com.example.longboardapp.view.screens.DancingLongBoard
+import com.example.longboardapp.view.screens.MenuLongBoard
+import com.example.longboardapp.view.screens.SurfTStakeLongBoard
+
 
 /**
  * Se va encargar de orquestar nuestra navegacion debemos agregar una libreria.
  */
 
+
 @Composable
 fun AppNavigation() {
     val navController =  rememberNavController()
-    NavHost(navController = navController, startDestination = AppScreens.MenuLongBoards.route) {
+    NavHost(navController = navController, startDestination = AppScreens.CruisingLongBoards.route) {
         composable(route = AppScreens.MenuLongBoards.route) {
            MenuLongBoard(navController)
         }
