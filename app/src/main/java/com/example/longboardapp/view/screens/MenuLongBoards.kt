@@ -16,34 +16,47 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.longboardapp.components.MiniMenuOptions
 import com.example.longboardapp.components.MyLongBoards
 import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.myRouteLongBoards
 import com.example.longboardapp.viewmodel.LongBoardViewModel
+import kotlinx.coroutines.launch
 
 
 var carritoLongBoards: ArrayList<LongBoardModel> = ArrayList()
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CheckResult")
+@SuppressLint(
+    "UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition",
+    "SuspiciousIndentation"
+)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuLongBoard
-(navController: NavController)  {
+fun MenuLongBoard(navController: NavController) {
 
-    val longBoardViewModel: LongBoardViewModel = hiltViewModel()
-    val longBoards: List<LongBoardModel> = longBoardViewModel.getAllLongBoards()
+    val longBoardViewModel = hiltViewModel<LongBoardViewModel>()
+    var longBoards: List<LongBoardModel> = mutableListOf()
+
+      longBoardViewModel.viewModelScope.launch{
+           longBoards =  longBoardViewModel.getAllLongBoards()
+
+    }
 
 
-    Scaffold( containerColor = MaterialTheme.colorScheme.errorContainer,
+
+
+    Scaffold(containerColor = MaterialTheme.colorScheme.errorContainer,
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -55,23 +68,25 @@ fun MenuLongBoard
                 },
                 actions = {
                     var isMenuOpened by remember { mutableStateOf(false) }
-                  IconButton(onClick = {isMenuOpened = true}) {
-                      Icon(imageVector = Icons.Filled.MoreVert,
-                          contentDescription = "Opciones de menu")
+                    IconButton(onClick = { isMenuOpened = true }) {
+                        Icon(
+                            imageVector = Icons.Filled.MoreVert,
+                            contentDescription = "Opciones de menu"
+                        )
 
-                          MiniMenuOptions(
-                              longBoards, isExpanded = isMenuOpened,
-                              onItemClick = { item ->
-                                  myRouteLongBoards(item, navController)
-                                  Log.i("TAG", "Elemento :  $item")
-                              }) {
-                              isMenuOpened = false
-                          }
-                  }
+                        MiniMenuOptions(
+                            longBoards, isExpanded = isMenuOpened,
+                            onItemClick = { item ->
+                                myRouteLongBoards(item, navController)
+                                Log.i("TAG", "Elemento :  $item")
+                            }) {
+                            isMenuOpened = false
+                        }
+                    }
                 }
             )
         }
-    ){
+    ) {
         BodyContent(navController, longBoards)
     }
 }
@@ -85,7 +100,9 @@ fun BodyContent(navController: NavController, longBoards: List<LongBoardModel>) 
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         MyLongBoards(longBoards, navController)
     }
 }
+
 

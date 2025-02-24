@@ -21,7 +21,7 @@ import com.example.longboardapp.view.screens.SurfTStakeLongBoard
 @Composable
 fun AppNavigation() {
     val navController =  rememberNavController()
-    NavHost(navController = navController, startDestination = AppScreens.MenuLongBoards.route) {
+    NavHost(navController = navController, startDestination = AppScreens.CruisingLongBoards.route) {
         composable(route = AppScreens.MenuLongBoards.route) {
            MenuLongBoard(navController)
         }

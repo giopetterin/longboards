@@ -26,22 +26,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
 import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
 import com.example.longboardapp.viewmodel.LongBoardViewModel
+import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BalanceLongBoard(navController: NavController) {
 
-    val longBoardViewModel: LongBoardViewModel = hiltViewModel()
-    val longBoards: List<LongBoardModel> = longBoardViewModel.getAllLongBoards()
+    val longBoardViewModel = hiltViewModel<LongBoardViewModel>()
+    var longBoards: List<LongBoardModel> = mutableListOf()
 
-    Scaffold(
+    longBoardViewModel.viewModelScope.launch{
+        longBoards =  longBoardViewModel.getAllLongBoards()
+
+    }
+
+
+        Scaffold(
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
