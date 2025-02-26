@@ -30,28 +30,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
+import com.example.longboardapp.components.getAllLongBoardsFromDB
 import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
-import com.example.longboardapp.viewmodel.LongBoardViewModel
-import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition",
+    "CheckResult", "SuspiciousIndentation"
+)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DancingLongBoard(navController: NavController) {
 
-    val longBoardViewModel = hiltViewModel<LongBoardViewModel>()
-    var longBoards: List<LongBoardModel> = mutableListOf()
+    val longBoards: List<LongBoardModel> = getAllLongBoardsFromDB()
 
-    longBoardViewModel.viewModelScope.launch{
-        longBoards =  longBoardViewModel.getAllLongBoards()
+    var varLocalLB = LongBoardModel("","", 0.0)
 
-    }
+        longBoards.map { l ->  if (l.tittle == "Dancing")  varLocalLB = l }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -109,7 +107,7 @@ fun DancingLongBoard(navController: NavController) {
             )
         }
     ) {
-        DancingBodyContent(longBoards)
+        DancingBodyContent(varLocalLB)
     }
 }
 
@@ -127,7 +125,7 @@ fun ImageDancing() {
 
 
 @Composable
-fun DancingBodyContent(longBoards: List<LongBoardModel> ) {
+fun DancingBodyContent(longBoard: LongBoardModel) {
     Box(
         modifier = Modifier
             .padding(start = 2.dp, 86.dp)
@@ -142,19 +140,19 @@ fun DancingBodyContent(longBoards: List<LongBoardModel> ) {
         ) {
             ImageDancing()
             MyDualTextsExpanded(
-                longBoards.first { it.tittle == "Dancing" }.tittle,
-                longBoards.first { it.tittle == "Dancing" }.body
+                longBoard.tittle,
+                longBoard.body
             )
             Row (  modifier = Modifier.fillMaxSize().padding(2.dp) ){
 
-                Text(text = longBoards.first { it.tittle == "Dancing" }.price.toString(),
+                Text(text = longBoard.price.toString(),
                     modifier = Modifier.padding(2.dp, 10.dp),
                     color = MaterialTheme.colorScheme.primary,
                    style =  MaterialTheme.typography.titleMedium)
                 IconButton(modifier = Modifier.padding(1.dp, 1.dp),
                     onClick = {
                         carritoLongBoards.add(
-                            longBoards.first { it.tittle == "Dancing" }
+                            longBoard
                         )
                     }
                 )

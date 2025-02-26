@@ -25,29 +25,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
+import com.example.longboardapp.components.getAllLongBoardsFromDB
 import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
-import com.example.longboardapp.viewmodel.LongBoardViewModel
-import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition",
+    "CheckResult"
+)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BalanceLongBoard(navController: NavController) {
 
-    val longBoardViewModel = hiltViewModel<LongBoardViewModel>()
-    var longBoards: List<LongBoardModel> = mutableListOf()
+    val longBoards: List<LongBoardModel> = getAllLongBoardsFromDB()
 
-    longBoardViewModel.viewModelScope.launch{
-        longBoards =  longBoardViewModel.getAllLongBoards()
+    var varLocalLB = LongBoardModel("","", 0.0)
 
-    }
-
+    longBoards.map { l ->  if (l.tittle == "Balance")  varLocalLB = l }
 
         Scaffold(
         topBar = {
@@ -84,7 +80,7 @@ fun BalanceLongBoard(navController: NavController) {
             )
         }
     ){
-        BalanceBodyContent(longBoards)
+        BalanceBodyContent(varLocalLB)
     }
 }
 
@@ -101,15 +97,15 @@ fun ImageBalance(){
 }
 
 @Composable
-fun BalanceBodyContent(longBoards: List<LongBoardModel>) {
+fun BalanceBodyContent(longBoards: LongBoardModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MyDualTextsExpanded(
-            longBoards.first { it.tittle == "Balance" }.tittle,
-            longBoards.first { it.tittle == "Balance" }.body)
+            longBoards.tittle,
+            longBoards.body)
         ImageBalance()
     }
 }

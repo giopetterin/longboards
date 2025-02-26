@@ -28,12 +28,20 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
+import com.example.longboardapp.components.getAllLongBoardsFromDB
+import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SurfTStakeLongBoard(navController: NavController) {
+
+    val longBoards: List<LongBoardModel> = getAllLongBoardsFromDB()
+
+    var varLocalLB = LongBoardModel("","", 0.0)
+
+    longBoards.map { l ->  if (l.tittle == "SurfTStake")  varLocalLB = l }
 
     Scaffold(
         topBar = {
@@ -70,7 +78,7 @@ fun SurfTStakeLongBoard(navController: NavController) {
             )
         }
     ){
-        SurfTStakeBodyContent()
+        SurfTStakeBodyContent(varLocalLB)
     }
 }
 
@@ -87,15 +95,15 @@ fun ImageSurfTStake(){
 }
 
 @Composable
-fun SurfTStakeBodyContent() {
+fun SurfTStakeBodyContent(longBoard: LongBoardModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        MyDualTextsExpanded(
-//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.tittle ,
-//            longBoards.asIterable().first { it.tittle == "SurfTStake" }.body)
+        MyDualTextsExpanded(
+            longBoard.tittle ,
+            longBoard.body)
         ImageSurfTStake()
     }
 }

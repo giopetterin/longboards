@@ -1,5 +1,6 @@
 package com.example.longboardapp.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -18,10 +19,13 @@ import com.example.longboardapp.view.screens.SurfTStakeLongBoard
  */
 
 
+@SuppressLint("CheckResult")
 @Composable
 fun AppNavigation() {
+
+
     val navController =  rememberNavController()
-    NavHost(navController = navController, startDestination = AppScreens.CruisingLongBoards.route) {
+    NavHost(navController = navController, startDestination = AppScreens.MenuLongBoards.route) {
         composable(route = AppScreens.MenuLongBoards.route) {
            MenuLongBoard(navController)
         }
@@ -59,5 +63,9 @@ fun myRouteLongBoards(name: String, navController: NavController) {
     else if (name == "Balance")
         navController.navigate(
             route = AppScreens.BalanceLongBoards.route
+        )
+    else if (name == "Menu")
+        navController.navigate(
+            route = AppScreens.MenuLongBoards.route
         )
 }
