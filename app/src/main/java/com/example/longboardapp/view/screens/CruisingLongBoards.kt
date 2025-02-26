@@ -24,17 +24,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.longboardapp.R
 import com.example.longboardapp.components.MyDualTextsExpanded
+import com.example.longboardapp.components.getAllLongBoardsFromDB
+import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CruisingLongBoard(navController: NavController) {
+
+    val longBoards: List<LongBoardModel> = getAllLongBoardsFromDB()
+
+    var varLocalLB = LongBoardModel("","", 0.0)
+
+    longBoards.map { l ->  if (l.tittle == "Cruising")  varLocalLB = l }
 
     Scaffold(
         topBar = {
@@ -71,7 +78,7 @@ fun CruisingLongBoard(navController: NavController) {
             )
         }
     ){
-        CruisingBodyContent()
+        CruisingBodyContent(varLocalLB)
     }
 }
 
@@ -88,21 +95,15 @@ fun ImageCruising(){
 }
 
 @Composable
-fun CruisingBodyContent() {
+fun CruisingBodyContent(longBoard: LongBoardModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        MyDualTextsExpanded(
-//            longBoards.asIterable().first { it.tittle == "Cruising" }.tittle ,
-//            longBoards.asIterable().first { it.tittle == "Cruising" }.body)
+        MyDualTextsExpanded(
+            longBoard.tittle ,
+            longBoard.body)
         ImageCruising()
     }
-}
-
-@Preview
-@Composable
-fun PreviewCruising(){
-    CruisingBodyContent()
 }

@@ -1,15 +1,15 @@
 package com.example.longboardapp.viewmodel
 
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.longboardapp.domain.LongBoardsRepository
 import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.model.LongBoardProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,22 +19,21 @@ class LongBoardViewModel
     private val longBoardProvider: LongBoardProvider
 ) : ViewModel() {
 
+private val _longBoardsLiveData = MutableLiveData<List<LongBoardModel>> ()
+var longBoardsLiveData: LiveData<List<LongBoardModel>> = _longBoardsLiveData
 
-
-    suspend fun getAllLongBoards(): List<LongBoardModel> {
-        var result: List<LongBoardModel> = longBoardProvider.getAllLongBoards()
+     fun onCreate() {
         viewModelScope.launch {
-            withContext(Dispatchers.Main){
+            var result: List<LongBoardModel>
                 result = longBoardsRepository.getAllLongBoardsFromDatabase()
                 if (!result.any()) {
                     longBoardsRepository.insertLongBoards(longBoardProvider.getAllLongBoards())
                     result = longBoardsRepository.getAllLongBoardsFromDatabase()
                 }
-            }
+
+                _longBoardsLiveData.postValue(result)
+
         }
-
-                return result
-
     }
 
 

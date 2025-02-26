@@ -1,5 +1,6 @@
 package com.example.longboardapp.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,10 +25,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.map
 import androidx.navigation.NavController
 import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.myRouteLongBoards
+import com.example.longboardapp.viewmodel.LongBoardViewModel
 
+
+@SuppressLint("CheckResult")
+@Composable
+fun getAllLongBoardsFromDB() : List<LongBoardModel>{
+    val longBoardViewModel = hiltViewModel<LongBoardViewModel>()
+    var longBoards: List<LongBoardModel> = mutableListOf()
+
+    longBoardViewModel.onCreate()
+
+    longBoardViewModel.longBoardsLiveData.map { data ->
+        longBoards = data
+    }
+
+    return longBoards
+}
 
 @Composable
 fun MyLongBoards(longBoards: List<LongBoardModel>, navController: NavController) {

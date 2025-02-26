@@ -10,4 +10,5 @@ import com.example.longboardapp.data.entities.LongBoardsEntity
 abstract class LongBoardsDataBase: RoomDatabase() {
 
     abstract fun getLongBoardDao():LongBoardsDao
+
 }
