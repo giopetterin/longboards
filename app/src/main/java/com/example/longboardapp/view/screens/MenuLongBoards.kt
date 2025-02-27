@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -24,9 +24,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import com.example.longboardapp.components.MiniMenuOptions
 import com.example.longboardapp.components.MyLongBoards
+import com.example.longboardapp.components.MyText
 import com.example.longboardapp.components.getAllLongBoardsFromDB
 import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.myRouteLongBoards
@@ -45,15 +47,22 @@ fun MenuLongBoard(navController: NavController) {
     val longBoards: List<LongBoardModel> = getAllLongBoardsFromDB()
 
 
-    Scaffold(containerColor = MaterialTheme.colorScheme.errorContainer,
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 title = {
-                    Text("Bienvenido a los tipos de Long Board")
+                    MyText(
+                        "Welcome LongBoards kind",
+                        MaterialTheme.colorScheme.onPrimary,
+                        MaterialTheme.typography.titleLarge,
+                        Int.MAX_VALUE,
+                        TextAlign.Center
+                    )
                 },
                 actions = {
                     var isMenuOpened by remember { mutableStateOf(false) }

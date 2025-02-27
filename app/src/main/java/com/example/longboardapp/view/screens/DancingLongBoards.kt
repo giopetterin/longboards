@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -52,7 +53,7 @@ fun DancingLongBoard(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -79,7 +80,7 @@ fun DancingLongBoard(navController: NavController) {
                                 .padding(start = 2.dp, top = 8.dp, end= 2.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text("Bienvenido a los Dancing Long Board!!",
+                            Text("Welcome Dancing LongBoard",
                                 color= MaterialTheme.colorScheme.onPrimary)
                         }
                         Box(
@@ -117,7 +118,7 @@ fun ImageDancing() {
         painterResource(R.drawable.imagedancinglongboard),
         "Mi imagen dancing",
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.primary)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .height(200.dp)
 
     )
@@ -128,9 +129,9 @@ fun ImageDancing() {
 fun DancingBodyContent(longBoard: LongBoardModel) {
     Box(
         modifier = Modifier
-            .padding(start = 2.dp, 86.dp)
-            .border(1.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(5.dp))
-            .height(400.dp),
+            .padding(start = 10.dp, top = 120.dp, end= 10.dp)
+            .border(1.dp, MaterialTheme.colorScheme.onPrimary, RoundedCornerShape(5.dp))
+            .height(380.dp),
         contentAlignment = Alignment.CenterEnd
     ) {
         Column(
