@@ -186,7 +186,7 @@ fun MyBodyLongBoardContent(longBoard: LongBoardModel) {
         modifier = Modifier
             .padding(start = 10.dp, top = 120.dp, end= 10.dp)
             .border(1.dp, MaterialTheme.colorScheme.onPrimary, RoundedCornerShape(5.dp))
-            .height(380.dp),
+            .height(400.dp),
         contentAlignment = Alignment.CenterEnd
     ) {
         Column(

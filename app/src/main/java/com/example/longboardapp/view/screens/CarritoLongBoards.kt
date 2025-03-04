@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -80,34 +77,62 @@ fun CarritoLongBoard(navController: NavController) {
             )
         }
     ) {
-        MyCarritoLongBoards(carritoLongBoards)
+        MyCarritoLongBoards(carritoLongBoards, navController)
     }
 }
 
 
 @Composable
-fun MyCarritoLongBoards(carritoLongBoards: List<LongBoardModel>) {
-
+fun MyCarritoLongBoards(carritoLongBoards: List<LongBoardModel>, navController: NavController) {
+    var total: Double = 0.0
     val longBoards: Set<LongBoardModel> =  carritoLongBoards.toSet()
 
-    LazyHorizontalGrid(rows = GridCells.Fixed(3)) {
-        items( longBoards.toList()){ longBoard ->
-            MyBodyCarritoContent(longBoard)
-        }
+     longBoards.forEach { lSet ->
+         total += carritoLongBoards.count { it.tittle == lSet.tittle } * lSet.price
+     }
 
+    Box(
+        modifier = Modifier
+            .padding(start = 1.dp, top = 100.dp, end = 1.dp)
+            .height(700.dp),
+        contentAlignment = Alignment.TopStart
+    ){
+        Column {
+            longBoards.toList().forEach{ longBoard ->
+                MyBodyCarritoContent(longBoard, navController)
+            }
+
+            Box(
+                modifier = Modifier
+                    .padding(start = 1.dp, top = 10.dp, end = 1.dp),
+                contentAlignment = Alignment.TopEnd
+            ){
+                Text(
+                    text = "Total = $total",
+                    modifier = Modifier.padding(18.dp, 5.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.titleMedium,
+                    textAlign = TextAlign.Justify
+                )
+            }
+
+        }
     }
+
+
+
 
 }
 
 
 
 @Composable
-fun MyBodyCarritoContent(longBoard: LongBoardModel) {
+fun MyBodyCarritoContent(longBoard: LongBoardModel, navController: NavController) {
     Box(
         modifier = Modifier
-            .padding(start = 10.dp, top = 120.dp, end = 10.dp)
+            .padding(start = 10.dp, top = 10.dp, end = 10.dp)
             .border(1.dp, MaterialTheme.colorScheme.onPrimary, RoundedCornerShape(5.dp))
-            .height(50.dp),
+            .height(150.dp),
         contentAlignment = Alignment.CenterEnd
     ) {
         Row() {
@@ -124,6 +149,7 @@ fun MyBodyCarritoContent(longBoard: LongBoardModel) {
                 IconButton(modifier = Modifier.padding(top = 10.dp),
                     onClick = {
                         carritoLongBoards.add(longBoard)
+                        navController.navigate(route = AppScreens.CarritoLongBoards.route)
                     }
                 )
                 {
@@ -143,6 +169,7 @@ fun MyBodyCarritoContent(longBoard: LongBoardModel) {
                 IconButton(
                     onClick = {
                         carritoLongBoards.remove(longBoard)
+                        navController.navigate(route = AppScreens.CarritoLongBoards.route)
                     }
                 )
                 {
@@ -168,11 +195,11 @@ fun MyBodyCarritoContent(longBoard: LongBoardModel) {
 
 }
 
-//
+
 //@Preview
 //@Composable
 //fun PreviewCarrito() {
 //    Column() {
-//        MyCarritoLongBoards()
+//        MyBodyCarritoContent()
 //    }
 //}
