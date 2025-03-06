@@ -10,6 +10,7 @@ import com.example.longboardapp.view.screens.BalanceLongBoard
 import com.example.longboardapp.view.screens.CarritoLongBoard
 import com.example.longboardapp.view.screens.CruisingLongBoard
 import com.example.longboardapp.view.screens.DancingLongBoard
+import com.example.longboardapp.view.screens.LoginLongBoards
 import com.example.longboardapp.view.screens.MenuLongBoard
 import com.example.longboardapp.view.screens.SurfTStakeLongBoard
 
@@ -25,7 +26,7 @@ fun AppNavigation() {
 
 
     val navController =  rememberNavController()
-    NavHost(navController = navController, startDestination = AppScreens.MenuLongBoards.route) {
+    NavHost(navController = navController, startDestination = AppScreens.LoginScreen.route) {
         composable(route = AppScreens.MenuLongBoards.route) {
            MenuLongBoard(navController)
         }
@@ -43,6 +44,9 @@ fun AppNavigation() {
         }
         composable(route = AppScreens.BalanceLongBoards.route) {
             BalanceLongBoard(navController)
+        }
+        composable(route = AppScreens.LoginScreen.route) {
+            LoginLongBoards(navController)
         }
     }
 }

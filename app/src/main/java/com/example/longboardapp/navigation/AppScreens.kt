@@ -10,4 +10,5 @@ sealed class AppScreens (val route: String) {
     object CruisingLongBoards: AppScreens("cruising_longBoards")
     object SurfSTakeLongBoards: AppScreens("surfStake_longBoards")
     object BalanceLongBoards: AppScreens("balance_longBoards")
+    object LoginScreen: AppScreens("login_longBoards")
 }
