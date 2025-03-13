@@ -32,8 +32,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,18 +51,19 @@ import com.example.longboardapp.navigation.AppScreens
 import com.example.longboardapp.navigation.myRouteLongBoards
 import com.example.longboardapp.view.screens.carritoLongBoards
 import com.example.longboardapp.viewmodel.LongBoardViewModel
+import kotlinx.coroutines.launch
 
 
-@SuppressLint("CheckResult")
+@SuppressLint("CheckResult", "CoroutineCreationDuringComposition")
 @Composable
 fun getAllLongBoardsFromDB() : List<LongBoardModel>{
     val longBoardViewModel = hiltViewModel<LongBoardViewModel>()
-    var longBoards: List<LongBoardModel> = mutableListOf()
+    val longBoards: List<LongBoardModel> by longBoardViewModel.longBoardsLiveData.observeAsState(initial = mutableListOf())
+    val coroutineScope = rememberCoroutineScope()
+    val isLoaded: Boolean by longBoardViewModel.isLoading.observeAsState(initial = false)
 
-    longBoardViewModel.onCreate()
-
-    longBoardViewModel.longBoardsLiveData.map { data ->
-        longBoards = data
+    if (!isLoaded) {
+        coroutineScope.launch { longBoardViewModel.onCreate() }
     }
 
     return longBoards

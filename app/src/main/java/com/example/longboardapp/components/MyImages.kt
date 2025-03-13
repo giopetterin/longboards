@@ -17,37 +17,41 @@ import com.example.longboardapp.R
 @Composable
 fun MyMenuImageLongBoards(name: String) {
 
-    if (name == "Dancing") Image(
-        painterResource(R.drawable.imagedancinglongboard),
-        "Mi imagen dancing",
-        modifier = Modifier
-            .size(64.dp)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
-            .aspectRatio(1f)
-    )
-    else if (name == "Cruising") Image(
-        painterResource(R.drawable.imagecruisinglongboard),
-        "Mi imagen dancing",
-        modifier = Modifier
-            .size(64.dp)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
-    ) else if (name == "SurfTStake") Image(
-        painterResource(R.drawable.imagesurfskate),
-        "Mi imagen dancing",
-        modifier = Modifier
-            .size(64.dp)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
-    ) else if (name == "Balance") Image(
-        painterResource(R.drawable.imagebalancelongboard),
-        "Mi imagen dancing",
-        modifier = Modifier
-            .size(64.dp)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
-    )
+    when (name) {
+        "Dancing" -> Image(
+            painterResource(R.drawable.imagedancinglongboard),
+            "Mi imagen dancing",
+            modifier = Modifier
+                .size(64.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.primary)
+                .aspectRatio(1f)
+        )
+        "Cruising" -> Image(
+            painterResource(R.drawable.imagecruisinglongboard),
+            "Mi imagen dancing",
+            modifier = Modifier
+                .size(64.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.primary)
+        )
+        "SurfTStake" -> Image(
+            painterResource(R.drawable.imagesurfskate),
+            "Mi imagen dancing",
+            modifier = Modifier
+                .size(64.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.primary)
+        )
+        "Balance" -> Image(
+            painterResource(R.drawable.imagebalancelongboard),
+            "Mi imagen dancing",
+            modifier = Modifier
+                .size(64.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.primary)
+        )
+    }
 }
 
 @Composable

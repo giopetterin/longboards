@@ -9,7 +9,6 @@ import com.example.longboardapp.domain.LongBoardsRepository
 import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.model.LongBoardProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,21 +18,23 @@ class LongBoardViewModel
     private val longBoardProvider: LongBoardProvider
 ) : ViewModel() {
 
-private val _longBoardsLiveData = MutableLiveData<List<LongBoardModel>> ()
-var longBoardsLiveData: LiveData<List<LongBoardModel>> = _longBoardsLiveData
+    private val _longBoardsLiveData = MutableLiveData<List<LongBoardModel>>()
+    var longBoardsLiveData: LiveData<List<LongBoardModel>> = _longBoardsLiveData
 
-     fun onCreate() {
-        viewModelScope.launch {
-            var result: List<LongBoardModel>
-                result = longBoardsRepository.getAllLongBoardsFromDatabase()
-                if (!result.any()) {
-                    longBoardsRepository.insertLongBoards(longBoardProvider.getAllLongBoards())
-                    result = longBoardsRepository.getAllLongBoardsFromDatabase()
-                }
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
-                _longBoardsLiveData.postValue(result)
+    suspend fun onCreate() {
 
+        var result: List<LongBoardModel>
+        result = longBoardsRepository.getAllLongBoardsFromDatabase()
+        if (result.isEmpty()) {
+            longBoardsRepository.insertLongBoards(longBoardProvider.getAllLongBoards())
+            result = longBoardsRepository.getAllLongBoardsFromDatabase()
         }
+        _longBoardsLiveData.postValue(result)
+        _isLoading.value = true
+
     }
 
 

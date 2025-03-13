@@ -26,7 +26,7 @@ fun AppNavigation() {
 
 
     val navController =  rememberNavController()
-    NavHost(navController = navController, startDestination = AppScreens.LoginScreen.route) {
+    NavHost(navController = navController, startDestination = AppScreens.MenuLongBoards.route) {
         composable(route = AppScreens.MenuLongBoards.route) {
            MenuLongBoard(navController)
         }
@@ -52,24 +52,21 @@ fun AppNavigation() {
 }
 
 fun myRouteLongBoards(name: String, navController: NavController) {
-    if (name == "Dancing")
-        navController.navigate(
+    when (name) {
+        "Dancing" -> navController.navigate(
             route = AppScreens.DancingLongBoards.route
         )
-    else if (name == "Cruising")
-        navController.navigate(
+        "Cruising" -> navController.navigate(
             route = AppScreens.CruisingLongBoards.route
         )
-    else if (name == "SurfTStake")
-        navController.navigate(
+        "SurfTStake" -> navController.navigate(
             route = AppScreens.SurfSTakeLongBoards.route
         )
-    else if (name == "Balance")
-        navController.navigate(
+        "Balance" -> navController.navigate(
             route = AppScreens.BalanceLongBoards.route
         )
-    else if (name == "Menu")
-        navController.navigate(
+        "Menu" -> navController.navigate(
             route = AppScreens.MenuLongBoards.route
         )
+    }
 }

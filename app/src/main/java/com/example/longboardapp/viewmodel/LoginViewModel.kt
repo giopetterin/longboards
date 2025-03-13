@@ -1,20 +1,23 @@
 package com.example.longboardapp.viewmodel
-import androidx.lifecycle.ViewModel
+
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import android.util.Patterns
-import com.example.longboardapp.data.repository.LocalUserRepository
+import androidx.lifecycle.ViewModel
+import com.example.longboardapp.domain.UserRepository
+import com.example.longboardapp.model.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel
-    @Inject
-    constructor(
-        private val localUserRepository: LocalUserRepository
-    )
-    : ViewModel() {
+@Inject
+constructor(
+
+    private val userRepository: UserRepository
+
+) : ViewModel() {
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
@@ -36,12 +39,18 @@ class LoginViewModel
 
     private fun isValidPassword(password: String): Boolean = password.length > 6
 
-    private fun isValidEmail(email: String): Boolean  = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun isValidEmail(email: String): Boolean =
+        Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     suspend fun onLoginSelected() {
+
         _isLoading.value = true
+        userRepository.insertUser(UserModel(email.value.toString(), password.value.toString()))
         delay(4000)
         _isLoading.value = false
-    }
+        }
+
+
+
 
 }
