@@ -11,4 +11,7 @@ sealed class AppScreens (val route: String) {
     data object SurfSTakeLongBoards: AppScreens("surfStake_longBoards")
     data object BalanceLongBoards: AppScreens("balance_longBoards")
     data object LoginScreen: AppScreens("login_longBoards")
+    data object ABMLongBoards: AppScreens("abm_longboards")
+    data object MenuPrincipal: AppScreens("menu_principal")
+    data object AltaProductoForm: AppScreens("alta_producto_form")
 }

@@ -1,5 +1,6 @@
 package com.example.longboardapp.data.repository
 
+import com.example.longboardapp.Resource
 import com.example.longboardapp.data.dao.LongBoardsDao
 import com.example.longboardapp.data.entities.LongBoardsEntity
 import com.example.longboardapp.data.entities.toDatabase
@@ -20,6 +21,18 @@ class LocalLongBoardsRepository @Inject constructor(
 
     override suspend fun insertLongBoards(longBoards: List<LongBoardModel>) {
         longBoardsDao.insertAll(longBoards.map { it.toDatabase() })
+    }
+
+    override suspend fun insertLongBoard(longBoard: LongBoardModel): Resource<Long> {
+       return  longBoardsDao.insertItemSafe(longBoard.toDatabase())
+    }
+
+    override suspend fun updateLongBoard(longBoard: LongBoardModel) {
+        longBoardsDao.update(longBoard.toDatabase())
+    }
+
+    override suspend fun deleteLongBoard(longBoard: LongBoardModel) {
+        longBoardsDao.delete(longBoard.toDatabase())
     }
 
 }

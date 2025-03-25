@@ -15,7 +15,7 @@ fun BalanceLongBoard(navController: NavController) {
 
     val longBoards: List<LongBoardModel> = getAllLongBoardsFromDB()
 
-    var varLocalLB = LongBoardModel("","", 0.0)
+    var varLocalLB = LongBoardModel(0,"","", 0.0)
 
     longBoards.map { l ->  if (l.tittle == "Balance")  varLocalLB = l }
 

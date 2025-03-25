@@ -6,12 +6,16 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.longboardapp.view.screens.ABMLongBoards
+import com.example.longboardapp.view.screens.AltaProductoForm
 import com.example.longboardapp.view.screens.BalanceLongBoard
 import com.example.longboardapp.view.screens.CarritoLongBoard
 import com.example.longboardapp.view.screens.CruisingLongBoard
 import com.example.longboardapp.view.screens.DancingLongBoard
+import com.example.longboardapp.view.screens.ListaProductos
 import com.example.longboardapp.view.screens.LoginLongBoards
 import com.example.longboardapp.view.screens.MenuLongBoard
+import com.example.longboardapp.view.screens.MenuPrincipal
 import com.example.longboardapp.view.screens.SurfTStakeLongBoard
 
 
@@ -26,9 +30,16 @@ fun AppNavigation() {
 
 
     val navController =  rememberNavController()
-    NavHost(navController = navController, startDestination = AppScreens.MenuLongBoards.route) {
+    NavHost(navController = navController, startDestination = AppScreens.MenuPrincipal.route) {
+
+        composable(route = AppScreens.MenuPrincipal.route) {
+            MenuPrincipal(navController)
+        }
         composable(route = AppScreens.MenuLongBoards.route) {
-           MenuLongBoard(navController)
+            MenuLongBoard(navController)
+        }
+        composable(route = AppScreens.ABMLongBoards.route) {
+            ABMLongBoards(navController)
         }
         composable(route = AppScreens.DancingLongBoards.route) {
             DancingLongBoard(navController)
