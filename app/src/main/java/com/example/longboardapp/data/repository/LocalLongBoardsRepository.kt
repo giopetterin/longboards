@@ -27,12 +27,12 @@ class LocalLongBoardsRepository @Inject constructor(
        return  longBoardsDao.insertItemSafe(longBoard.toDatabase())
     }
 
-    override suspend fun updateLongBoard(longBoard: LongBoardModel) {
-        longBoardsDao.update(longBoard.toDatabase())
+    override suspend fun updateLongBoard(longBoard: LongBoardModel): Resource<Unit> {
+        return longBoardsDao.updateItemSafe(longBoard.toDatabase())
     }
 
-    override suspend fun deleteLongBoard(longBoard: LongBoardModel) {
-        longBoardsDao.delete(longBoard.toDatabase())
+    override suspend fun deleteLongBoard(longBoard: LongBoardModel) : Resource<Unit> {
+       return longBoardsDao.deleteItemSafe(longBoard.toDatabase())
     }
 
 }

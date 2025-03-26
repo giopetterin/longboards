@@ -1,5 +1,6 @@
 package com.example.longboardapp.data.dao
 
+import android.util.Log
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -8,7 +9,6 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.longboardapp.Resource
 import com.example.longboardapp.data.entities.LongBoardsEntity
-import com.example.longboardapp.model.LongBoardModel
 
 @Dao
 interface LongBoardsDao {
@@ -35,10 +35,30 @@ interface LongBoardsDao {
             Resource.Success(resource)
 
         } catch (e: Exception) {
+            Log.i("LongBoardsDao", "Insert Error", e)
+            Resource.Error(e)
+        }
+
+    suspend fun updateItemSafe(longBoard: LongBoardsEntity): Resource<Unit> =
+        try {
+            val resource = update(longBoard)
+            Resource.Success(resource)
+
+        } catch (e: Exception) {
+            Log.i("LongBoardsDao", "Update Error", e)
             Resource.Error(e)
         }
 
 
+    suspend fun deleteItemSafe(longBoard: LongBoardsEntity): Resource<Unit> =
+        try {
+            val resource = delete(longBoard)
+            Resource.Success(resource)
+
+        } catch (e: Exception) {
+            Log.i("LongBoardsDao", "Delete Error", e)
+            Resource.Error(e)
+        }
 
 }
 

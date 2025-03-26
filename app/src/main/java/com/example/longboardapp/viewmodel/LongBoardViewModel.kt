@@ -1,12 +1,9 @@
 package com.example.longboardapp.viewmodel
 
 
-import android.icu.text.CaseMap.Title
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.longboardapp.Resource
 import com.example.longboardapp.domain.LongBoardsRepository
 import com.example.longboardapp.model.LongBoardModel
@@ -14,7 +11,6 @@ import com.example.longboardapp.model.LongBoardProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,7 +57,13 @@ class LongBoardViewModel
 
     suspend fun deleteProduct(products: List<LongBoardModel>, product: LongBoardModel) {
         products.minus(product)
-        longBoardsRepository.deleteLongBoard(product)
+
+
+        when( val result = longBoardsRepository.deleteLongBoard(product)){
+            is Resource.Success -> _error.value = null
+
+            is Resource.Error -> _error.value = result.exception
+        }
     }
 
     suspend fun editProduct(product: LongBoardModel, title: String, body: String, price: Double) {
@@ -69,7 +71,12 @@ class LongBoardViewModel
         product.body = body
         product.price = price
 
-        longBoardsRepository.updateLongBoard(product)
+        when( val result = longBoardsRepository.updateLongBoard(product)){
+            is Resource.Success -> _error.value = null
+
+            is Resource.Error -> _error.value = result.exception
+        }
+
     }
 
 

@@ -44,7 +44,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.map
 import androidx.navigation.NavController
 import com.example.longboardapp.model.LongBoardModel
 import com.example.longboardapp.navigation.AppScreens
