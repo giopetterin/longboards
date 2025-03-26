@@ -16,4 +16,4 @@ data class LongBoardsEntity(
 )
 
 
-fun LongBoardModel.toDatabase() = LongBoardsEntity(tittle = tittle, body =  body, price = price)
+fun LongBoardModel.toDatabase() = LongBoardsEntity(id = id, tittle = tittle, body =  body, price = price)

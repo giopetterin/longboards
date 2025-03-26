@@ -6,11 +6,14 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.longboardapp.view.screens.ABMLongBoards
 import com.example.longboardapp.view.screens.BalanceLongBoard
 import com.example.longboardapp.view.screens.CarritoLongBoard
 import com.example.longboardapp.view.screens.CruisingLongBoard
 import com.example.longboardapp.view.screens.DancingLongBoard
+import com.example.longboardapp.view.screens.LoginLongBoards
 import com.example.longboardapp.view.screens.MenuLongBoard
+import com.example.longboardapp.view.screens.MenuPrincipal
 import com.example.longboardapp.view.screens.SurfTStakeLongBoard
 
 
@@ -25,9 +28,16 @@ fun AppNavigation() {
 
 
     val navController =  rememberNavController()
-    NavHost(navController = navController, startDestination = AppScreens.MenuLongBoards.route) {
+    NavHost(navController = navController, startDestination = AppScreens.MenuPrincipal.route) {
+
+        composable(route = AppScreens.MenuPrincipal.route) {
+            MenuPrincipal(navController)
+        }
         composable(route = AppScreens.MenuLongBoards.route) {
-           MenuLongBoard(navController)
+            MenuLongBoard(navController)
+        }
+        composable(route = AppScreens.ABMLongBoards.route) {
+            ABMLongBoards(navController)
         }
         composable(route = AppScreens.DancingLongBoards.route) {
             DancingLongBoard(navController)
@@ -44,28 +54,28 @@ fun AppNavigation() {
         composable(route = AppScreens.BalanceLongBoards.route) {
             BalanceLongBoard(navController)
         }
+        composable(route = AppScreens.LoginScreen.route) {
+            LoginLongBoards(navController)
+        }
     }
 }
 
 fun myRouteLongBoards(name: String, navController: NavController) {
-    if (name == "Dancing")
-        navController.navigate(
+    when (name) {
+        "Dancing" -> navController.navigate(
             route = AppScreens.DancingLongBoards.route
         )
-    else if (name == "Cruising")
-        navController.navigate(
+        "Cruising" -> navController.navigate(
             route = AppScreens.CruisingLongBoards.route
         )
-    else if (name == "SurfTStake")
-        navController.navigate(
+        "SurfTStake" -> navController.navigate(
             route = AppScreens.SurfSTakeLongBoards.route
         )
-    else if (name == "Balance")
-        navController.navigate(
+        "Balance" -> navController.navigate(
             route = AppScreens.BalanceLongBoards.route
         )
-    else if (name == "Menu")
-        navController.navigate(
+        "Menu" -> navController.navigate(
             route = AppScreens.MenuLongBoards.route
         )
+    }
 }

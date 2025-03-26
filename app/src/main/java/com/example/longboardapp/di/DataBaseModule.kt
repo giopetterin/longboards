@@ -17,13 +17,21 @@ class DataBaseModule{
     @Singleton
     @Provides
     fun provideRoomDataBase(@ApplicationContext appContext: Context): LongBoardsDataBase {
+
         return Room.databaseBuilder(
             appContext,
-            LongBoardsDataBase::class.java, "long_boards_database"
-        ).build()
+            LongBoardsDataBase::class.java,
+            "long_boards_database")
+//            .fallbackToDestructiveMigration()
+            .build()
+
     }
 
     @Singleton
     @Provides
     fun provideLongBoardsDao(db: LongBoardsDataBase) = db.getLongBoardDao()
+
+    @Singleton
+    @Provides
+    fun provideUserDao(db: LongBoardsDataBase) = db.getUserDao()
 }
