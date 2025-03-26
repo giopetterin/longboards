@@ -93,6 +93,16 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
+    // JUnit 4 (para pruebas unitarias)
+    testImplementation("junit:junit:4.13.2")
+
+    // Mockito (para simular dependencias)
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation("org.mockito:mockito-inline:3.12.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") // O la versión más reciente
+    testImplementation("app.cash.turbine:turbine:1.0.0") // O la versión más reciente
+    testImplementation("androidx.arch.core:core-testing:2.2.0") //Live data testing
+    testImplementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

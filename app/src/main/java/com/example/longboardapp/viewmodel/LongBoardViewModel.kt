@@ -17,14 +17,14 @@ import javax.inject.Inject
 class LongBoardViewModel
 @Inject constructor(
     private val longBoardsRepository: LongBoardsRepository,
-    private val longBoardProvider: LongBoardProvider
+    //private val longBoardProvider: LongBoardProvider
 ) : ViewModel() {
 
-    private val _longBoardsLiveData = MutableLiveData<List<LongBoardModel>>()
+    internal var _longBoardsLiveData = MutableLiveData<List<LongBoardModel>>()
     var longBoardsLiveData: LiveData<List<LongBoardModel>> = _longBoardsLiveData
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    internal var _isLoading = MutableLiveData<Boolean>()
+    var isLoading: LiveData<Boolean> = _isLoading
 
 
     private val _error = MutableStateFlow<Exception?>(null)
@@ -36,7 +36,6 @@ class LongBoardViewModel
         var result: List<LongBoardModel>
         result = longBoardsRepository.getAllLongBoardsFromDatabase()
         if (result.isEmpty()) {
-            longBoardsRepository.insertLongBoards(longBoardProvider.getAllLongBoards())
             result = longBoardsRepository.getAllLongBoardsFromDatabase()
         }
         _longBoardsLiveData.postValue(result)
