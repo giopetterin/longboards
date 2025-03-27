@@ -19,17 +19,17 @@ constructor(
 
 ) : ViewModel() {
 
-    private val _email = MutableLiveData<String>()
-    val email: LiveData<String> = _email
+    internal var _email = MutableLiveData<String>()
+    var email: LiveData<String> = _email
 
-    private val _password = MutableLiveData<String>()
-    val password: LiveData<String> = _password
+    internal var _password = MutableLiveData<String>()
+    var password: LiveData<String> = _password
 
-    private val _loginEnable = MutableLiveData<Boolean>()
-    val loginEnable: LiveData<Boolean> = _loginEnable
+    internal var _loginEnable = MutableLiveData<Boolean>()
+    var loginEnable: LiveData<Boolean> = _loginEnable
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    internal var _isLoading = MutableLiveData<Boolean>()
+    var isLoading: LiveData<Boolean> = _isLoading
 
     fun onLoginChanged(email: String, password: String) {
         _email.value = email
@@ -39,7 +39,7 @@ constructor(
 
     private fun isValidPassword(password: String): Boolean = password.length > 6
 
-    private fun isValidEmail(email: String): Boolean =
+    internal fun isValidEmail(email: String): Boolean =
         Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     suspend fun onLoginSelected() {

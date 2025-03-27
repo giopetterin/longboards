@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.core.ktx)
     val nav_version = "2.8.6"
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
@@ -103,6 +104,9 @@ dependencies {
     testImplementation("app.cash.turbine:turbine:1.0.0") // O la versión más reciente
     testImplementation("androidx.arch.core:core-testing:2.2.0") //Live data testing
     testImplementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    testImplementation("org.robolectric:robolectric:4.14.1")
+    testImplementation("androidx.room:room-testing:2.6.1") // O la versión más reciente de Room
+    testImplementation("androidx.room:room-ktx:2.6.1")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

@@ -9,7 +9,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
@@ -19,19 +18,19 @@ import org.mockito.MockitoAnnotations
 class LongBoardViewModelTest {
 
     @Mock
-    private lateinit var longBoardsRepository: LongBoardsRepository // Replace with your repository
+    private lateinit var longBoardsRepository: LongBoardsRepository
 
 
-    private lateinit var longBoardViewModel: LongBoardViewModel // Replace with your class
+    private lateinit var longBoardViewModel: LongBoardViewModel
 
     @Rule
     @JvmField
-    val instantTaskExecutorRule = InstantTaskExecutorRule() // For LiveData testing
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        longBoardViewModel = LongBoardViewModel(longBoardsRepository) // Replace with your class
+        longBoardViewModel = LongBoardViewModel(longBoardsRepository)
 
     }
 

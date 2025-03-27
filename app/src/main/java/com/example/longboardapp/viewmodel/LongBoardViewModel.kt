@@ -17,7 +17,6 @@ import javax.inject.Inject
 class LongBoardViewModel
 @Inject constructor(
     private val longBoardsRepository: LongBoardsRepository,
-    //private val longBoardProvider: LongBoardProvider
 ) : ViewModel() {
 
     internal var _longBoardsLiveData = MutableLiveData<List<LongBoardModel>>()
@@ -44,10 +43,15 @@ class LongBoardViewModel
     }
 
 
-    suspend fun addProduct(products: List<LongBoardModel>, title: String, body: String, price: Double) {
+    suspend fun addProduct(
+        products: List<LongBoardModel>,
+        title: String,
+        body: String,
+        price: Double
+    ) {
         val newProduct = LongBoardModel(0, title, body, price)
         products.plus(newProduct)
-        when( val result = longBoardsRepository.insertLongBoard(newProduct)){
+        when (val result = longBoardsRepository.insertLongBoard(newProduct)) {
             is Resource.Success -> _error.value = null
 
             is Resource.Error -> _error.value = result.exception
@@ -58,7 +62,7 @@ class LongBoardViewModel
         products.minus(product)
 
 
-        when( val result = longBoardsRepository.deleteLongBoard(product)){
+        when (val result = longBoardsRepository.deleteLongBoard(product)) {
             is Resource.Success -> _error.value = null
 
             is Resource.Error -> _error.value = result.exception
@@ -70,7 +74,7 @@ class LongBoardViewModel
         product.body = body
         product.price = price
 
-        when( val result = longBoardsRepository.updateLongBoard(product)){
+        when (val result = longBoardsRepository.updateLongBoard(product)) {
             is Resource.Success -> _error.value = null
 
             is Resource.Error -> _error.value = result.exception
